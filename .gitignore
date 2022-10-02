@@ -4,9 +4,6 @@ node_modules/
 .idea/
 *.iml
 
-# Yarn files
-.yarn
-
 # Environment variables
 .DS_Store
 
