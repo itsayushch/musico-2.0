@@ -4,6 +4,7 @@
   "author": "Ayush Chi",
   "license": "MIT",
   "dependencies": {
+    "@lavaclient/queue": "^2.1.1",
     "@sapphire/decorators": "^4.3.8",
     "@sapphire/discord-utilities": "next",
     "@sapphire/discord.js-utilities": "next",
@@ -20,6 +21,7 @@
     "discord-api-types": "^0.33.5",
     "discord.js": "^13.10.2",
     "dotenv-cra": "^3.0.2",
+    "lavaclient": "^4.1.1",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {

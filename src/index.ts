@@ -1,7 +1,8 @@
 import './lib/setup';
-import { LogLevel, SapphireClient } from '@sapphire/framework';
+import { LogLevel } from '@sapphire/framework';
+import { Bot } from './struct/Bot';
 
-const client = new SapphireClient({
+const client = new Bot({
 	defaultPrefix: '!',
 	regexPrefix: /^(hey +)?bot[,! ]/i,
 	caseInsensitiveCommands: true,
@@ -21,7 +22,7 @@ const client = new SapphireClient({
 		'DIRECT_MESSAGE_REACTIONS'
 	],
 	partials: ['CHANNEL'],
-	loadMessageCommandListeners: true
+	loadMessageCommandListeners: true,
 });
 
 const main = async () => {

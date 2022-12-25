@@ -58,6 +58,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lavaclient/queue@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@lavaclient/queue@npm:2.1.1"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: aeb90930a3054482f8325bc5e662464190ebeb9e3e2eb337e6d9400c1a9b81b80501e277bc203e7cea1e56f658b2b787529abd6d3f0b055b915cdf3ce1fd6f95
+  languageName: node
+  linkType: hard
+
+"@lavaclient/types@npm:^2.1.0":
+  version: 2.1.1
+  resolution: "@lavaclient/types@npm:2.1.1"
+  checksum: a6bcaae6baaad696ab545d609f3b764563bffbf02ac65746be2b7eb1d844853f73968c004e227b14d5fec8cd53ef1e3092ca1a8ae51259e0b04c0b2c52405189
+  languageName: node
+  linkType: hard
+
 "@npmcli/fs@npm:^2.1.0":
   version: 2.1.2
   resolution: "@npmcli/fs@npm:2.1.2"
@@ -511,6 +527,15 @@ __metadata:
   dependencies:
     balanced-match: ^1.0.0
   checksum: a61e7cd2e8a8505e9f0036b3b6108ba5e926b4b55089eeb5550cd04a471fe216c96d4fe7e4c7f995c728c554ae20ddfc4244cad10aef255e72b62930afd233d1
+  languageName: node
+  linkType: hard
+
+"busboy@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "busboy@npm:1.6.0"
+  dependencies:
+    streamsearch: ^1.1.0
+  checksum: 32801e2c0164e12106bf236291a00795c3c4e4b709ae02132883fe8478ba2ae23743b11c5735a0aae8afe65ac4b6ca4568b91f0d9fed1fdbc32ede824a73746e
   languageName: node
   linkType: hard
 
@@ -1350,6 +1375,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lavaclient@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "lavaclient@npm:4.1.1"
+  dependencies:
+    "@lavaclient/types": ^2.1.0
+    tiny-typed-emitter: ^2.1.0
+    undici: ^5.8.0
+    ws: ^8.2.3
+  checksum: c19feb5e16c379aefe84dd725a149b23a05c2c3e0a3a01c7f102fbe5880bedada6f88cf704c009c63ba1bb02b56ce9ce0b189cf0a334a72184528bb4cf7cadf8
+  languageName: node
+  linkType: hard
+
 "load-json-file@npm:^4.0.0":
   version: 4.0.0
   resolution: "load-json-file@npm:4.0.0"
@@ -1735,6 +1772,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "octwober@workspace:."
   dependencies:
+    "@lavaclient/queue": ^2.1.1
     "@sapphire/decorators": ^4.3.8
     "@sapphire/discord-utilities": next
     "@sapphire/discord.js-utilities": next
@@ -1755,6 +1793,7 @@ __metadata:
     discord-api-types: ^0.33.5
     discord.js: ^13.10.2
     dotenv-cra: ^3.0.2
+    lavaclient: ^4.1.1
     npm-run-all: ^4.1.5
     prettier: ^2.7.1
     reflect-metadata: ^0.1.13
@@ -2188,6 +2227,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"streamsearch@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "streamsearch@npm:1.1.0"
+  checksum: 1cce16cea8405d7a233d32ca5e00a00169cc0e19fbc02aa839959985f267335d435c07f96e5e0edd0eadc6d39c98d5435fb5bbbdefc62c41834eadc5622ad942
+  languageName: node
+  linkType: hard
+
 "string-argv@npm:^0.1.1":
   version: 0.1.2
   resolution: "string-argv@npm:0.1.2"
@@ -2301,6 +2347,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-typed-emitter@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "tiny-typed-emitter@npm:2.1.0"
+  checksum: 709bca410054e08df4dc29d5ea0916328bb2900d60245c6a743068ea223887d9fd2c945b6070eb20336275a557a36c2808e5c87d2ed4b60633458632be4a3e10
+  languageName: node
+  linkType: hard
+
 "tr46@npm:~0.0.3":
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
@@ -2368,6 +2421,15 @@ __metadata:
     has-symbols: ^1.0.3
     which-boxed-primitive: ^1.0.2
   checksum: b7a1cf5862b5e4b5deb091672ffa579aa274f648410009c81cca63fed3b62b610c4f3b773f912ce545bb4e31edc3138975b5bc777fc6e4817dca51affb6380e9
+  languageName: node
+  linkType: hard
+
+"undici@npm:^5.8.0":
+  version: 5.14.0
+  resolution: "undici@npm:5.14.0"
+  dependencies:
+    busboy: ^1.6.0
+  checksum: 7a076e44d84b25844b4eb657034437b8b9bb91f17d347de474fdea1d4263ce7ae9406db79cd30de5642519277b4893f43073258bcc8fed420b295da3fdd11b26
   languageName: node
   linkType: hard
 
@@ -2471,6 +2533,21 @@ __metadata:
   version: 1.0.2
   resolution: "wrappy@npm:1.0.2"
   checksum: 159da4805f7e84a3d003d8841557196034155008f817172d4e986bd591f74aa82aa7db55929a54222309e01079a65a92a9e6414da5a6aa4b01ee44a511ac3ee5
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.2.3":
+  version: 8.11.0
+  resolution: "ws@npm:8.11.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 316b33aba32f317cd217df66dbfc5b281a2f09ff36815de222bc859e3424d83766d9eb2bd4d667de658b6ab7be151f258318fb1da812416b30be13103e5b5c67
   languageName: node
   linkType: hard
 
