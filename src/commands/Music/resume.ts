@@ -3,8 +3,10 @@ import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
 import type { Message } from 'discord.js';
 
+
 @ApplyOptions<Command.Options>({
-	description: 'Leaves the voice channel and clears the queue.'
+	description: 'Skips a song to the next one.',
+    aliases: ['s', 'next']
 })
 
 export class UserCommand extends Command {
@@ -39,14 +41,24 @@ export class UserCommand extends Command {
 		}
 
         const queue = this.container.client.music.queues.get(message.guild!.id);
-		await queue.clear();
-		await queue.stop();
-		await queue.player.destroy();
-		if (message.guild?.me?.voice.channel) await queue.player.leave();
 
-		return send(message, {
-			content: null,
-			embeds: [{author: { name: 'Left the voice channel!' }, color: 11642864}]
+        if (!queue.player.paused) {
+			return send(message, {
+                content: null,
+				embeds: [{ description: 'Player isn\'t not Paused!', color: 11642864 }]
+			});
+		}
+
+		await queue.player.pause(false);
+
+        return send(message, {
+            content: null,
+			embeds: [{ author: { name: 'Resumed ▶' }, color: 11642864 }]
 		});
+	}
+
+    async decode(track: string) {
+		const decoded = await this.container.client.music.decode(track);
+		return decoded;
 	}
 }

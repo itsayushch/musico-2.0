@@ -6,9 +6,10 @@ import { Message, MessageEmbed } from 'discord.js';
 import timeString from '../../lib/time-string';
 
 @ApplyOptions<Command.Options>({
-	description: 'Leaves the voice channel and clears the queue.',
-    options: ['clear']
+	description: 'Skips a song to the next one.',
+    aliases: ['s', 'next']
 })
+
 export class UserCommand extends Command {
 	// Register slash and context menu command
 	public override registerApplicationCommands(registry: Command.Registry) {
@@ -16,16 +17,6 @@ export class UserCommand extends Command {
 		registry.registerChatInputCommand({
 			name: this.name,
 			description: this.description
-		});
-		// Register context menu command available from any message
-		registry.registerContextMenuCommand({
-			name: this.name,
-			type: 'MESSAGE'
-		});
-		// Register context menu command available from any user
-		registry.registerContextMenuCommand({
-			name: this.name,
-			type: 'USER'
 		});
 	}
 
