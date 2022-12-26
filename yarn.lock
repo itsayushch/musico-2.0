@@ -58,22 +58,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lavaclient/queue@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "@lavaclient/queue@npm:2.1.1"
-  dependencies:
-    tslib: ^2.4.0
-  checksum: aeb90930a3054482f8325bc5e662464190ebeb9e3e2eb337e6d9400c1a9b81b80501e277bc203e7cea1e56f658b2b787529abd6d3f0b055b915cdf3ce1fd6f95
-  languageName: node
-  linkType: hard
-
-"@lavaclient/types@npm:^2.1.0":
-  version: 2.1.1
-  resolution: "@lavaclient/types@npm:2.1.1"
-  checksum: a6bcaae6baaad696ab545d609f3b764563bffbf02ac65746be2b7eb1d844853f73968c004e227b14d5fec8cd53ef1e3092ca1a8ae51259e0b04c0b2c52405189
-  languageName: node
-  linkType: hard
-
 "@npmcli/fs@npm:^2.1.0":
   version: 2.1.2
   resolution: "@npmcli/fs@npm:2.1.2"
@@ -377,6 +361,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/backoff@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "@types/backoff@npm:2.5.2"
+  dependencies:
+    "@types/node": "*"
+  checksum: a22b727b3540d28535fb9fefb0ece82ae2c325a16f7ab2736650a93294e74fec77d33562f2b363f8fcb3c6c1d8f8654d7d7a57f319e5b173e3c7d16819d8d235
+  languageName: node
+  linkType: hard
+
+"@types/common-tags@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "@types/common-tags@npm:1.8.1"
+  checksum: bec6f68c8c434834380abd1dc057aa6ba26661bb0c65c700b65049e9b104d7be96a987d93dbe8726be68554a23a52514a6967d8903fdb51fb8c78cf909d1e4c1
+  languageName: node
+  linkType: hard
+
 "@types/node-fetch@npm:2.6.2, @types/node-fetch@npm:^2.6.2":
   version: 2.6.2
   resolution: "@types/node-fetch@npm:2.6.2"
@@ -504,6 +504,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"backoff@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "backoff@npm:2.5.0"
+  dependencies:
+    precond: 0.2
+  checksum: ccdcf2a26acd9379d0d4f09e3fb3b7ee34dee94f07ab74d1e38b38f89a3675d9f3cbebb142d9c61c655f4c9eb63f1d6ec28cebeb3dc9215efd8fe7cef92725b9
+  languageName: node
+  linkType: hard
+
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
@@ -527,15 +536,6 @@ __metadata:
   dependencies:
     balanced-match: ^1.0.0
   checksum: a61e7cd2e8a8505e9f0036b3b6108ba5e926b4b55089eeb5550cd04a471fe216c96d4fe7e4c7f995c728c554ae20ddfc4244cad10aef255e72b62930afd233d1
-  languageName: node
-  linkType: hard
-
-"busboy@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "busboy@npm:1.6.0"
-  dependencies:
-    streamsearch: ^1.1.0
-  checksum: 32801e2c0164e12106bf236291a00795c3c4e4b709ae02132883fe8478ba2ae23743b11c5735a0aae8afe65ac4b6ca4568b91f0d9fed1fdbc32ede824a73746e
   languageName: node
   linkType: hard
 
@@ -638,6 +638,13 @@ __metadata:
   dependencies:
     delayed-stream: ~1.0.0
   checksum: 49fa4aeb4916567e33ea81d088f6584749fc90c7abec76fd516bf1c5aa5c79f3584b5ba3de6b86d26ddd64bae5329c4c7479343250cfe71c75bb366eae53bb7c
+  languageName: node
+  linkType: hard
+
+"common-tags@npm:^1.8.2":
+  version: 1.8.2
+  resolution: "common-tags@npm:1.8.2"
+  checksum: 767a6255a84bbc47df49a60ab583053bb29a7d9687066a18500a516188a062c4e4cd52de341f22de0b07062e699b1b8fe3cfa1cb55b241cb9301aeb4f45b4dff
   languageName: node
   linkType: hard
 
@@ -1375,15 +1382,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lavaclient@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "lavaclient@npm:4.1.1"
+"lavalink@npm:^2.13.0":
+  version: 2.13.0
+  resolution: "lavalink@npm:2.13.0"
   dependencies:
-    "@lavaclient/types": ^2.1.0
-    tiny-typed-emitter: ^2.1.0
-    undici: ^5.8.0
-    ws: ^8.2.3
-  checksum: c19feb5e16c379aefe84dd725a149b23a05c2c3e0a3a01c7f102fbe5880bedada6f88cf704c009c63ba1bb02b56ce9ce0b189cf0a334a72184528bb4cf7cadf8
+    backoff: ^2.5.0
+    ws: ^7.4.0
+  checksum: 0e57d4995a66223661af907a6699889a6916e75a3cac902e489090c5c6cb1fc0e8975178c348facfb932e6f144da7ce64db1088fbe581aae9ea97208121ddf92
   languageName: node
   linkType: hard
 
@@ -1772,7 +1777,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "octwober@workspace:."
   dependencies:
-    "@lavaclient/queue": ^2.1.1
     "@sapphire/decorators": ^4.3.8
     "@sapphire/discord-utilities": next
     "@sapphire/discord.js-utilities": next
@@ -1787,13 +1791,16 @@ __metadata:
     "@sapphire/ts-config": ^3.3.4
     "@sapphire/type": ^2.2.4
     "@sapphire/utilities": ^3.9.1
+    "@types/backoff": ^2.5.2
+    "@types/common-tags": ^1.8.1
     "@types/node": ^18.7.8
     "@types/ws": ^8.5.3
     colorette: ^2.0.19
+    common-tags: ^1.8.2
     discord-api-types: ^0.33.5
     discord.js: ^13.10.2
     dotenv-cra: ^3.0.2
-    lavaclient: ^4.1.1
+    lavalink: ^2.13.0
     npm-run-all: ^4.1.5
     prettier: ^2.7.1
     reflect-metadata: ^0.1.13
@@ -1889,6 +1896,13 @@ __metadata:
   version: 3.0.0
   resolution: "pify@npm:3.0.0"
   checksum: 6cdcbc3567d5c412450c53261a3f10991665d660961e06605decf4544a61a97a54fefe70a68d5c37080ff9d6f4cf51444c90198d1ba9f9309a6c0d6e9f5c4fde
+  languageName: node
+  linkType: hard
+
+"precond@npm:0.2":
+  version: 0.2.3
+  resolution: "precond@npm:0.2.3"
+  checksum: c613e7d68af3e0b43a294a994bf067cc2bc44b03fd17bc4fb133e30617a4f5b49414b08e9b392d52d7c6822d8a71f66a7fe93a8a1e7d02240177202cff3f63ef
   languageName: node
   linkType: hard
 
@@ -2227,13 +2241,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamsearch@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "streamsearch@npm:1.1.0"
-  checksum: 1cce16cea8405d7a233d32ca5e00a00169cc0e19fbc02aa839959985f267335d435c07f96e5e0edd0eadc6d39c98d5435fb5bbbdefc62c41834eadc5622ad942
-  languageName: node
-  linkType: hard
-
 "string-argv@npm:^0.1.1":
   version: 0.1.2
   resolution: "string-argv@npm:0.1.2"
@@ -2347,13 +2354,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-typed-emitter@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "tiny-typed-emitter@npm:2.1.0"
-  checksum: 709bca410054e08df4dc29d5ea0916328bb2900d60245c6a743068ea223887d9fd2c945b6070eb20336275a557a36c2808e5c87d2ed4b60633458632be4a3e10
-  languageName: node
-  linkType: hard
-
 "tr46@npm:~0.0.3":
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
@@ -2421,15 +2421,6 @@ __metadata:
     has-symbols: ^1.0.3
     which-boxed-primitive: ^1.0.2
   checksum: b7a1cf5862b5e4b5deb091672ffa579aa274f648410009c81cca63fed3b62b610c4f3b773f912ce545bb4e31edc3138975b5bc777fc6e4817dca51affb6380e9
-  languageName: node
-  linkType: hard
-
-"undici@npm:^5.8.0":
-  version: 5.14.0
-  resolution: "undici@npm:5.14.0"
-  dependencies:
-    busboy: ^1.6.0
-  checksum: 7a076e44d84b25844b4eb657034437b8b9bb91f17d347de474fdea1d4263ce7ae9406db79cd30de5642519277b4893f43073258bcc8fed420b295da3fdd11b26
   languageName: node
   linkType: hard
 
@@ -2536,9 +2527,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.2.3":
-  version: 8.11.0
-  resolution: "ws@npm:8.11.0"
+"ws@npm:^7.4.0":
+  version: 7.5.9
+  resolution: "ws@npm:7.5.9"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -2547,7 +2538,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 316b33aba32f317cd217df66dbfc5b281a2f09ff36815de222bc859e3424d83766d9eb2bd4d667de658b6ab7be151f258318fb1da812416b30be13103e5b5c67
+  checksum: c3c100a181b731f40b7f2fddf004aa023f79d64f489706a28bc23ff88e87f6a64b3c6651fbec3a84a53960b75159574d7a7385709847a62ddb7ad6af76f49138
   languageName: node
   linkType: hard
 

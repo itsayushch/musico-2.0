@@ -4,7 +4,6 @@
   "author": "Ayush Chi",
   "license": "MIT",
   "dependencies": {
-    "@lavaclient/queue": "^2.1.1",
     "@sapphire/decorators": "^4.3.8",
     "@sapphire/discord-utilities": "next",
     "@sapphire/discord.js-utilities": "next",
@@ -17,16 +16,19 @@
     "@sapphire/time-utilities": "^1.7.5",
     "@sapphire/type": "^2.2.4",
     "@sapphire/utilities": "^3.9.1",
+    "@types/common-tags": "^1.8.1",
     "colorette": "^2.0.19",
+    "common-tags": "^1.8.2",
     "discord-api-types": "^0.33.5",
     "discord.js": "^13.10.2",
     "dotenv-cra": "^3.0.2",
-    "lavaclient": "^4.1.1",
+    "lavalink": "^2.13.0",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@sapphire/prettier-config": "^1.4.3",
     "@sapphire/ts-config": "^3.3.4",
+    "@types/backoff": "^2.5.2",
     "@types/node": "^18.7.8",
     "@types/ws": "^8.5.3",
     "npm-run-all": "^4.1.5",
