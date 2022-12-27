@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "dist/index.js",
-  "author": "Ayush Chi",
+  "author": "Ayush Chowdhury",
   "license": "MIT",
   "dependencies": {
     "@sapphire/decorators": "^4.3.8",
@@ -47,14 +47,14 @@
   "prettier": "@sapphire/prettier-config",
   "packageManager": "yarn@3.2.3",
   "types": "./dist/index.d.ts",
-  "name": "octwober",
+  "name": "musico",
   "description": "This is a basic setup of a Discord bot using the [sapphire framework][sapphire] written in TypeScript",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itsayushch/octwober-new.git"
+    "url": "git+https://github.com/itsayushch/musico-2.0-new.git"
   },
   "bugs": {
-    "url": "https://github.com/itsayushch/octwober-new/issues"
+    "url": "https://github.com/itsayushch/musico-2.0-new/issues"
   },
-  "homepage": "https://github.com/itsayushch/octwober-new#readme"
+  "homepage": "https://github.com/itsayushch/musico-2.0-new#readme"
 }
