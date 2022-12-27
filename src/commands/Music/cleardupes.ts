@@ -45,4 +45,32 @@ export class UserCommand extends Command {
 			}]
 		});
 	}
+
+	// slash command
+	public async chatInputRun(message: Command.ChatInputInteraction) {
+		const queue = this.container.client.music.queues.get(message.guild!.id);
+		const tracks = await queue.tracks();
+		if (!tracks.length) {
+			return message.reply({
+				embeds: [{ description: 'You must be playing a track to use this command!', color: 11642864 }]
+			});
+		}
+
+		const newTracks = tracks.reduce((a: any, b: any) => {
+			if (a.indexOf(b) < 0) a.push(b);
+			return a;
+		}, []);
+
+		await queue.store.cached.delete(queue.keys.next);
+		await queue.add(...newTracks);
+
+		const removed = tracks.length - newTracks.length;
+		return message.reply({
+			embeds: [{
+				author: {
+					name: `Removed ${removed} Track${removed === 1 ? '' : 's'}`
+				}, color: 11642864
+			}]
+		});
+	}
 }

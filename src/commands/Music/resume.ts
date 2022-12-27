@@ -1,7 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import type { Message } from 'discord.js';
+import type { GuildMember, Message } from 'discord.js';
+
 
 
 @ApplyOptions<Command.Options>({
@@ -17,16 +18,7 @@ export class UserCommand extends Command {
 			name: this.name,
 			description: this.description
 		});
-		// Register context menu command available from any message
-		registry.registerContextMenuCommand({
-			name: this.name,
-			type: 'MESSAGE'
-		});
-		// Register context menu command available from any user
-		registry.registerContextMenuCommand({
-			name: this.name,
-			type: 'USER'
-		});
+
 	}
 
 	// Message command
@@ -56,6 +48,33 @@ export class UserCommand extends Command {
 			embeds: [{ author: { name: 'Resumed ▶' }, color: 11642864 }]
 		});
 	}
+
+	public async chatInputRun(message: Command.ChatInputInteraction) {
+		if (!(message.member as GuildMember)?.voice?.channel) {
+			return message.reply({
+                content: null,
+                embeds:[{
+                    description: 'You must be connected to a voice channel to use that command!', color: 11642864 
+                }]
+            })
+		}
+
+        const queue = this.container.client.music.queues.get(message.guild!.id);
+
+        if (!queue.player.paused) {
+			return message.reply({
+                content: null,
+				embeds: [{ description: 'Player isn\'t not Paused!', color: 11642864 }]
+			});
+		}
+
+		await queue.player.pause(false);
+
+        return message.reply({
+            content: null,
+			embeds: [{ author: { name: 'Resumed ▶' }, color: 11642864 }]
+		});
+    }
 
     async decode(track: string) {
 		const decoded = await this.container.client.music.decode(track);

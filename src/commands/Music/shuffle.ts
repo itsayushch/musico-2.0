@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import type { Message } from 'discord.js';
+import type { GuildMember, Message } from 'discord.js';
 
 @ApplyOptions<Command.Options>({
 	description: 'Shuffles the queue.'
@@ -32,6 +32,25 @@ export class UserCommand extends Command {
 		await queue.shuffle();
 
 		return send(message, {
+			content: null,
+			embeds: [{ author: { name: 'Shuffled 🔀' }, color: 11642864 }]
+		});
+	}
+
+	public async chatInputRun(message: Command.ChatInputInteraction) {
+		if (!(message.member as GuildMember)?.voice?.channel) {
+			return message.reply({
+                content: null,
+                embeds:[{
+                    description: 'You must be connected to a voice channel to use that command!', color: 11642864 
+                }]
+            })
+		}
+
+        const queue = this.container.client.music.queues.get(message.guild!.id);
+		await queue.shuffle();
+
+		return message.reply({
 			content: null,
 			embeds: [{ author: { name: 'Shuffled 🔀' }, color: 11642864 }]
 		});

@@ -21,7 +21,7 @@ export class UserCommand extends Command {
             .setName(this.name)
             .setDescription(this.description)
             .addStringOption((option) =>
-                option.setName('query').setDescription('Name/URL of the song').setRequired(true).setAutocomplete(true)
+                option.setName('query').setDescription('Name/URL of the song').setRequired(true)
             )
     );
     }
@@ -156,8 +156,8 @@ export class UserCommand extends Command {
     }
 
     // slash command below
-    public async chatInputRun(message: Command.ChatInputInteraction, ) {
-        let query = message.options.getString('q')
+    public async chatInputRun(message: Command.ChatInputInteraction) {
+        let query = message.options.getString('query')
         const member = message.member as GuildMember;
 
         if (!member.voice || !member.voice.channel) {
