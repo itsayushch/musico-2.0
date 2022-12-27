@@ -2,9 +2,15 @@ import '../lib/setup';
 import type { ClientOptions } from 'discord.js'
 import { SapphireClient } from '@sapphire/framework';
 import Music from './Queue';
+import { Database } from './Database';
+import SettingsProvider from './SettingsProvider';
+import type { Db } from 'mongodb';
 
 export class Bot extends SapphireClient {
-    readonly music: Music;
+    public readonly music: Music;
+    public db!: Db;
+    public settings!: SettingsProvider;
+    
     constructor(args: ClientOptions) {
         super(args);
 
@@ -39,10 +45,31 @@ export class Bot extends SapphireClient {
 			}
 		});
     }
+
+    async init() {
+        await Database.connect().then(() => this.logger.info('Connected to MongoDB'));
+		this.db = Database.db('musico');
+
+
+        this.settings = new SettingsProvider(this.db);
+		await this.settings.init();
+
+        try {
+            this.logger.info('Logging in');
+            await this.login();
+            this.logger.info('logged in');
+        } catch (error) {
+            this.logger.fatal(error);
+            this.destroy();
+            process.exit(1);
+        }
+    }
 }
 
-declare module "discord.js" {
+declare module 'discord.js' {
     interface Client {
         readonly music: Music
+        db: Db
+        settings: SettingsProvider
     }
 }

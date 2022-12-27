@@ -23,6 +23,7 @@
     "discord.js": "^13.10.2",
     "dotenv-cra": "^3.0.2",
     "lavalink": "^2.13.0",
+    "mongodb": "^4.13.0",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
