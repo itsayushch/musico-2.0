@@ -3,8 +3,8 @@ import { LogLevel } from '@sapphire/framework';
 import { Bot } from './struct/Bot';
 
 const client = new Bot({
-	defaultPrefix: '!',
-	regexPrefix: /^(hey +)?bot[,! ]/i,
+	defaultPrefix: ';',
+	regexPrefix: /^(hey +)?musico[,! ]/i,
 	caseInsensitiveCommands: true,
 	logger: {
 		level: LogLevel.Debug
