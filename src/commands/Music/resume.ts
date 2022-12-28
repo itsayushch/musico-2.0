@@ -3,13 +3,10 @@ import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
 import type { GuildMember, Message } from 'discord.js';
 
-
-
 @ApplyOptions<Command.Options>({
 	description: 'Skips a song to the next one.',
-    aliases: ['s', 'next']
+	aliases: ['s', 'next']
 })
-
 export class UserCommand extends Command {
 	// Register slash and context menu command
 	public override registerApplicationCommands(registry: Command.Registry) {
@@ -18,33 +15,35 @@ export class UserCommand extends Command {
 			name: this.name,
 			description: this.description
 		});
-
 	}
 
 	// Message command
 	public async messageRun(message: Message) {
 		if (!message.member?.voice?.channel) {
 			return send(message, {
-                content: null,
-                embeds:[{
-                    description: 'You must be connected to a voice channel to use that command!', color: 11642864 
-                }]
-            })
+				content: null,
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 11642864
+					}
+				]
+			});
 		}
 
-        const queue = this.container.client.music.queues.get(message.guild!.id);
+		const queue = this.container.client.music.queues.get(message.guild!.id);
 
-        if (!queue.player.paused) {
+		if (!queue.player.paused) {
 			return send(message, {
-                content: null,
-				embeds: [{ description: 'Player isn\'t not Paused!', color: 11642864 }]
+				content: null,
+				embeds: [{ description: "Player isn't not Paused!", color: 11642864 }]
 			});
 		}
 
 		await queue.player.pause(false);
 
-        return send(message, {
-            content: null,
+		return send(message, {
+			content: null,
 			embeds: [{ author: { name: 'Resumed ▶' }, color: 11642864 }]
 		});
 	}
@@ -52,31 +51,34 @@ export class UserCommand extends Command {
 	public async chatInputRun(message: Command.ChatInputInteraction) {
 		if (!(message.member as GuildMember)?.voice?.channel) {
 			return message.reply({
-                content: null,
-                embeds:[{
-                    description: 'You must be connected to a voice channel to use that command!', color: 11642864 
-                }]
-            })
+				content: null,
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 11642864
+					}
+				]
+			});
 		}
 
-        const queue = this.container.client.music.queues.get(message.guild!.id);
+		const queue = this.container.client.music.queues.get(message.guild!.id);
 
-        if (!queue.player.paused) {
+		if (!queue.player.paused) {
 			return message.reply({
-                content: null,
-				embeds: [{ description: 'Player isn\'t not Paused!', color: 11642864 }]
+				content: null,
+				embeds: [{ description: "Player isn't not Paused!", color: 11642864 }]
 			});
 		}
 
 		await queue.player.pause(false);
 
-        return message.reply({
-            content: null,
+		return message.reply({
+			content: null,
 			embeds: [{ author: { name: 'Resumed ▶' }, color: 11642864 }]
 		});
-    }
+	}
 
-    async decode(track: string) {
+	async decode(track: string) {
 		const decoded = await this.container.client.music.decode(track);
 		return decoded;
 	}

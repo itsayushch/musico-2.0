@@ -26,7 +26,7 @@ export function sendLoadingMessage(message: Message): Promise<typeof message> {
 	return send(message, { embeds: [new MessageEmbed().setDescription(pickRandom(RandomLoadingMessage)).setColor('#FF0000')] });
 }
 
-export function sendLoadingInteraction(interaction: Command.ChatInputInteraction): Promise<typeof interaction| APIMessage | Message<boolean>> {
+export function sendLoadingInteraction(interaction: Command.ChatInputInteraction): Promise<typeof interaction | APIMessage | Message<boolean>> {
 	return interaction.reply({ embeds: [new MessageEmbed().setDescription(pickRandom(RandomLoadingMessage)).setColor('#FF0000')], fetchReply: true });
 }
 

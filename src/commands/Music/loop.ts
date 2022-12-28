@@ -7,7 +7,6 @@ import type { GuildMember, Message } from 'discord.js';
 	description: 'Loops the current song in the queue.',
 	aliases: ['repeat']
 })
-
 export class UserCommand extends Command {
 	// Register slash and context menu command
 	public override registerApplicationCommands(registry: Command.Registry) {
@@ -23,9 +22,12 @@ export class UserCommand extends Command {
 		if (!message.member?.voice || !message.member.voice.channel) {
 			return send(message, {
 				content: null,
-				embeds: [{
-					description: 'You must be connected to a voice channel to use that command!', color: 'RED'
-				}]
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 'RED'
+					}
+				]
 			});
 		}
 
@@ -42,9 +44,12 @@ export class UserCommand extends Command {
 		if (!(message.member as GuildMember)?.voice || !(message.member as GuildMember)?.voice.channel) {
 			return message.reply({
 				content: null,
-				embeds: [{
-					description: 'You must be connected to a voice channel to use that command!', color: 'RED'
-				}]
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 'RED'
+					}
+				]
 			});
 		}
 

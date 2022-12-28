@@ -7,7 +7,6 @@ import type { Message } from 'discord.js';
 	description: 'Removes duplicate songs from the queue.',
 	aliases: ['removedupes', 'rd']
 })
-
 export class UserCommand extends Command {
 	// Register slash and context menu command
 	public override registerApplicationCommands(registry: Command.Registry) {
@@ -38,11 +37,14 @@ export class UserCommand extends Command {
 
 		const removed = tracks.length - newTracks.length;
 		return send(message, {
-			embeds: [{
-				author: {
-					name: `Removed ${removed} Track${removed === 1 ? '' : 's'}`
-				}, color: 11642864
-			}]
+			embeds: [
+				{
+					author: {
+						name: `Removed ${removed} Track${removed === 1 ? '' : 's'}`
+					},
+					color: 11642864
+				}
+			]
 		});
 	}
 
@@ -66,11 +68,14 @@ export class UserCommand extends Command {
 
 		const removed = tracks.length - newTracks.length;
 		return message.reply({
-			embeds: [{
-				author: {
-					name: `Removed ${removed} Track${removed === 1 ? '' : 's'}`
-				}, color: 11642864
-			}]
+			embeds: [
+				{
+					author: {
+						name: `Removed ${removed} Track${removed === 1 ? '' : 's'}`
+					},
+					color: 11642864
+				}
+			]
 		});
 	}
 }

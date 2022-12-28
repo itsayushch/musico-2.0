@@ -6,7 +6,6 @@ import type { GuildMember, Message } from 'discord.js';
 @ApplyOptions<Command.Options>({
 	description: 'Leaves the voice channel and clears the queue.'
 })
-
 export class UserCommand extends Command {
 	// Register slash and context menu command
 	public override registerApplicationCommands(registry: Command.Registry) {
@@ -15,7 +14,6 @@ export class UserCommand extends Command {
 			name: this.name,
 			description: this.description
 		});
-
 	}
 
 	// Message command
@@ -23,10 +21,13 @@ export class UserCommand extends Command {
 		if (!message.member?.voice?.channel) {
 			return send(message, {
 				content: null,
-				embeds: [{
-					description: 'You must be connected to a voice channel to use that command!', color: 11642864
-				}]
-			})
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 11642864
+					}
+				]
+			});
 		}
 
 		const queue = this.container.client.music.queues.get(message.guild!.id);
@@ -46,10 +47,13 @@ export class UserCommand extends Command {
 		if (!(message.member as GuildMember)?.voice?.channel) {
 			return message.reply({
 				content: null,
-				embeds: [{
-					description: 'You must be connected to a voice channel to use that command!', color: 11642864
-				}]
-			})
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 11642864
+					}
+				]
+			});
 		}
 
 		const queue = this.container.client.music.queues.get(message.guild!.id);

@@ -9,7 +9,6 @@ import timeString from '../../lib/time-string';
 	description: 'Skips a song to the next one.',
 	aliases: ['s', 'next']
 })
-
 export class UserCommand extends Command {
 	// Register slash and context menu command
 	public override registerApplicationCommands(registry: Command.Registry) {
@@ -18,10 +17,8 @@ export class UserCommand extends Command {
 			builder
 				.setName(this.name)
 				.setDescription(this.description)
-				.addIntegerOption((option) =>
-					option.setName('position').setDescription(this.description).setRequired(false)
-				)
-		)
+				.addIntegerOption((option) => option.setName('position').setDescription(this.description).setRequired(false))
+		);
 	}
 
 	// Message command
@@ -31,10 +28,13 @@ export class UserCommand extends Command {
 		if (!message.member?.voice?.channel) {
 			return send(message, {
 				content: null,
-				embeds: [{
-					description: 'You must be connected to a voice channel to use that command!', color: 11642864
-				}]
-			})
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 11642864
+					}
+				]
+			});
 		}
 
 		const queue = this.container.client.music.queues.get(message.guild!.id);
@@ -69,10 +69,13 @@ export class UserCommand extends Command {
 		if (!(message.member as GuildMember)?.voice?.channel) {
 			return message.reply({
 				content: null,
-				embeds: [{
-					description: 'You must be connected to a voice channel to use that command!', color: 11642864
-				}]
-			})
+				embeds: [
+					{
+						description: 'You must be connected to a voice channel to use that command!',
+						color: 11642864
+					}
+				]
+			});
 		}
 
 		let num = message.options.getInteger('position') ?? 1;
@@ -103,7 +106,6 @@ export class UserCommand extends Command {
 			content: null,
 			embeds: [embed]
 		});
-
 	}
 
 	async decode(track: string) {

@@ -22,7 +22,7 @@ const client = new Bot({
 		'DIRECT_MESSAGE_REACTIONS'
 	],
 	partials: ['CHANNEL'],
-	loadMessageCommandListeners: true,
+	loadMessageCommandListeners: true
 });
 
 client.init();

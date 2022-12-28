@@ -1,7 +1,6 @@
 import { Guild } from 'discord.js';
 import type { Db, Collection } from 'mongodb';
 
-
 export default class SettingsProvider {
 	protected database: Collection;
 	private readonly items = new Map();
@@ -20,9 +19,8 @@ export default class SettingsProvider {
 	public get<T>(guild: string | Guild, key: string, defaultValue?: any): T {
 		const id = this.getGuildId(guild);
 		const data = this.items.get(id);
-		return (data && data[key]) ? data[key] : defaultValue;
+		return data && data[key] ? data[key] : defaultValue;
 	}
-
 
 	public set(guild: string | Guild, key: string, value: any) {
 		const id = this.getGuildId(guild);
@@ -30,11 +28,7 @@ export default class SettingsProvider {
 		data[key] = value;
 		this.items.set(id, data);
 
-		return this.database.updateOne(
-			{ id },
-			{ $set: { [key]: value } },
-			{ upsert: true }
-		);
+		return this.database.updateOne({ id }, { $set: { [key]: value } }, { upsert: true });
 	}
 
 	public delete(guild: string | Guild, key: string) {
@@ -42,9 +36,13 @@ export default class SettingsProvider {
 		const data = this.items.get(id) || {};
 		delete data[key];
 
-		return this.database.updateOne({ id }, {
-			$unset: { [key]: '' }
-		}, { upsert: true });
+		return this.database.updateOne(
+			{ id },
+			{
+				$unset: { [key]: '' }
+			},
+			{ upsert: true }
+		);
 	}
 
 	public clear(guild: string | Guild) {
@@ -60,5 +58,4 @@ export default class SettingsProvider {
 		if (typeof guild === 'string' && /^\d+$/.test(guild)) return guild;
 		throw new TypeError('Invalid guild specified. Must be a Guild instance, guild ID, "global", or null.');
 	}
-
 }

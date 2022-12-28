@@ -12,7 +12,6 @@ interface lavalinkPlayerUpdate {
 }
 
 class Queue extends events.EventEmitter {
-
 	public readonly keys: { next: string; pos: string; prev: string; loop: string };
 	private guild: string;
 	public constructor(public readonly store: QueueStore, guild: string) {
@@ -26,8 +25,11 @@ class Queue extends events.EventEmitter {
 			loop: `${this.guild}.loop`
 		};
 
-		this.on('event', async d => {
-			if (!['TrackEndEvent', 'TrackStartEvent', 'WebSocketClosedEvent'].includes(d.type) || (d.type === 'TrackEndEvent' && !['REPLACED', 'STOPPED'].includes(d.reason!))) {
+		this.on('event', async (d) => {
+			if (
+				!['TrackEndEvent', 'TrackStartEvent', 'WebSocketClosedEvent'].includes(d.type) ||
+				(d.type === 'TrackEndEvent' && !['REPLACED', 'STOPPED'].includes(d.reason!))
+			) {
 				let count = d.type === 'TrackEndEvent' ? undefined : 1;
 				try {
 					await this._next({ count, previous: d });
@@ -113,7 +115,8 @@ class Queue extends events.EventEmitter {
 
 	public shuffle() {
 		const tracks = this._store.get(this.keys.next) || [];
-		const shuffled = tracks.map((track: string) => ({ sort: Math.random(), track }))
+		const shuffled = tracks
+			.map((track: string) => ({ sort: Math.random(), track }))
 			.sort((a: { sort: number }, b: { sort: number }) => a.sort - b.sort)
 			.map((a: { track: number }) => a.track);
 		return this._store.set(this.keys.next, shuffled);
@@ -192,11 +195,9 @@ class Queue extends events.EventEmitter {
 	private get _store() {
 		return this.store.cached;
 	}
-
 }
 
 class QueueStore extends Map<string, Queue> {
-
 	public cached: Map<string, any>;
 	public constructor(public readonly client: Client) {
 		super();
@@ -212,11 +213,9 @@ class QueueStore extends Map<string, Queue> {
 		}
 		return queue;
 	}
-
 }
 
 class QueueNode extends Node {
-
 	public readonly queues: QueueStore;
 	public advanceBy: (queue: Queue, info: { previous: string; remaining: number }) => number;
 
@@ -226,12 +225,11 @@ class QueueNode extends Node {
 		this.queues = new QueueStore(this);
 		this.advanceBy = options.advanceBy || (() => 1);
 		for (const name of ['event', 'playerUpdate']) {
-			this.on(name, d => {
+			this.on(name, (d) => {
 				this.queues.get(d.guildId).emit(name, d);
 			});
 		}
 	}
-
 }
 
 export default QueueNode;

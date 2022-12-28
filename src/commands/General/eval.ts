@@ -18,7 +18,7 @@ import fetch from 'node-fetch';
 export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
 		const code = await args.rest('string').catch(() => null);
-		
+
 		if (!code) return send(message, 'Laude code daal BC');
 
 		let { result, success, type } = await this.eval(message, code, {
@@ -28,27 +28,27 @@ export class UserCommand extends Command {
 		});
 
 		const token = this.container.client.token!.split('').join('[^]{0,2}');
-        const rev = this.container.client.token!.split('').reverse().join('[^]{0,2}');
-        const filter = new RegExp(`${token}|${rev}`, 'g');
+		const rev = this.container.client.token!.split('').reverse().join('[^]{0,2}');
+		const filter = new RegExp(`${token}|${rev}`, 'g');
 
-        result = result.replace(filter, '[TOKEN ENCRYPTED]');
-        result = this.clean(result);
+		result = result.replace(filter, '[TOKEN ENCRYPTED]');
+		result = this.clean(result);
 		const output = success ? codeBlock('js', result) : `**ERROR**: ${codeBlock('bash', result)}`;
 		if (args.getFlags('silent', 's')) return null;
 
 		const typeFooter = `**Type**: ${codeBlock('typescript', type)}`;
 
 		if (output.length > 2000) {
-            try {
-                const haste = await this.getHaste(result);
+			try {
+				const haste = await this.getHaste(result);
 				return send(message, `${haste}\n\n${typeFooter}`);
-            } catch (e) {
+			} catch (e) {
 				return send(message, {
 					content: `Output was too long... sent the result as a file.\n\n${typeFooter}`,
 					files: [{ attachment: Buffer.from(output), name: 'output.js' }]
 				});
-            }
-        }
+			}
+		}
 
 		return send(message, `${output}\n${typeFooter}`);
 	}
@@ -88,18 +88,18 @@ export class UserCommand extends Command {
 	}
 
 	private async getHaste(result: string) {
-        const res = await fetch('https://hastebin.skyra.pw/documents', {
-            method: 'POST',
-            body: result,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const { key } = await res?.json();
-        return `https://hastebin.skyra.pw/${key}.js`;
-    }
+		const res = await fetch('https://hastebin.skyra.pw/documents', {
+			method: 'POST',
+			body: result,
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		const { key } = await res?.json();
+		return `https://hastebin.skyra.pw/${key}.js`;
+	}
 
 	private clean(text: string) {
-        return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
-    }
+		return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
+	}
 }
