@@ -16,9 +16,6 @@ config.ts
 *.heapsnapshot
 *.log
 
-# Ignore npm lockfiles file
-package-lock.json
-
 # Environment variables
 .env
 .env.local
