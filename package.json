@@ -46,7 +46,6 @@
     "format": "prettier --write \"src/**/*.ts\""
   },
   "prettier": "@sapphire/prettier-config",
-  "packageManager": "yarn@3.2.3",
   "types": "./dist/index.d.ts",
   "name": "musico",
   "description": "This is a basic setup of a Discord bot using the [sapphire framework][sapphire] written in TypeScript",
