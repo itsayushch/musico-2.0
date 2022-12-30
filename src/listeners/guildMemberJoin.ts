@@ -1,20 +1,24 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener, Events } from '@sapphire/framework';
 import { stripIndents } from 'common-tags';
-import type { GuildMember } from 'discord.js';
+import type { GuildMember, TextChannel } from 'discord.js';
 
 @ApplyOptions<Listener.Options>({ event: Events.GuildMemberAdd })
 export class UserEvent extends Listener {	
     public async run(member: GuildMember) {
-        const webhook = await this.container.client.fetchWebhook('1056952589868081302').catch(() => null);
+        const channel = this.container.client.channels.cache.get('1056952589868081302') as TextChannel;
+
+        const webhooks = await channel!.fetchWebhooks();
+        const webhook = webhooks.first();
+        
         if (!webhook) return;
 
         return member.user.bot
-        ? webhook.send(`<a:hug:864429334009348106>${member.toString()}, Welcome! Oh it's a bot`)
+        ? webhook.send(`${member.toString()}, Welcome! Oh it's a bot <a:hug:864429334009348106>`)
         : webhook.send(stripIndents`
-                <a:Hi:765766930761383976> Welcome ${member.toString()}!
+                <a:Hi:864535083641864192> Welcome ${member.toString()}!
                 Make sure to read the rules in <#1056555186367242271> and get your roles from <#1056950401770995722>.
-                Happy **${this.getDay}!** <a:blobdance:765766933017526283>
+                Happy **${this.getDay}!** <a:blobdance:864429336169545789>
             `);
 	}
     
