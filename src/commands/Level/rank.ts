@@ -27,6 +27,22 @@ export class UserCommand extends Command {
 
         const data = await this.getData(member.user);
 
+        if (!data.userData && !member.user.bot) {
+			return send(message, {
+				embeds: [{
+					color: 'RED',
+					description: `<:Cross:1060646027318800385> **${member.user.tag}** does not have any exp. Start chatting to earn them.`
+				}]
+			});
+		} else if (member.user.bot) {
+            return send(message, {
+				embeds: [{
+					color: 'RED',
+					description: `<:Cross:1060646027318800385> **${member.user.tag}** is a bot. What is the point of a bot earning exp?`
+				}]
+			});
+		}
+
         const rank = new Rank()
             .setAvatar(member.displayAvatarURL({ size: 2048, format: 'png' }))
             .setCurrentXP(data.currentLevelExp)
@@ -50,6 +66,24 @@ export class UserCommand extends Command {
         const member = (message.options.getMember('member') ?? message.member) as GuildMember;
 
         const data = await this.getData(member.user);
+
+
+        if (!data.userData && !member.user.bot) {
+			return message.reply({
+				embeds: [{
+					color: 'RED',
+					description: `<:Cross:1060646027318800385> **${member.user.tag}** does not have any exp. Start chatting to earn them.`
+				}]
+			});
+		} else if (member.user.bot) {
+            return message.reply({
+				embeds: [{
+					color: 'RED',
+					description: `<:Cross:1060646027318800385> **${member.user.tag}** is a bot. What is the point of a bot earning exp?`
+				}]
+			});
+		}
+
 
         const rank = new Rank()
             .setAvatar(member.user.displayAvatarURL({ size: 2048, format: 'png' }))
@@ -80,6 +114,7 @@ export class UserCommand extends Command {
         const rank = leaderboard.findIndex((item) => item.user === user.id) + 1;
 
         return {
+            userData,
             currentLevel,
             levelExp,
             currentLevelExp,
