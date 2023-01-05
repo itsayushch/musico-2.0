@@ -31,8 +31,8 @@ export class UserCommand extends Command {
 			.setLevel(data.currentLevel)
 			.setStatus(message.member?.presence?.status ?? 'offline')
 			.setProgressBar('#FFFFFF', 'COLOR')
-			.setUsername('Snowflake')
-			.setDiscriminator('0007');
+			.setUsername(message.author.username)
+			.setDiscriminator(message.author.discriminator);
 
 		const img = await rank.build();
 		const attachment = new MessageAttachment(img, 'rank.png');
@@ -53,8 +53,8 @@ export class UserCommand extends Command {
 			.setLevel(data.currentLevel)
 			.setStatus((message.member as GuildMember)?.presence?.status ?? 'offline')
 			.setProgressBar('#FFFFFF', 'COLOR')
-			.setUsername('Snowflake')
-			.setDiscriminator('0007');
+			.setUsername(message.user.username)
+			.setDiscriminator(message.user.discriminator);
 
 		const img = await rank.build();
 		const attachment = new MessageAttachment(img, 'rank.png');
