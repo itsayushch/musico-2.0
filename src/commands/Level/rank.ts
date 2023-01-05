@@ -17,7 +17,7 @@ export class UserCommand extends Command {
 			builder
 				.setName(this.name)
 				.setDescription(this.description)
-				.addMentionableOption((option) => option.setName('member').setDescription(this.description).setRequired(false))
+				.addUserOption((option) => option.setName('member').setDescription(this.description).setRequired(false))
 		);
     }
 
@@ -47,7 +47,7 @@ export class UserCommand extends Command {
     }
 
     public async chatInputRun(message: Command.ChatInputInteraction) {
-        const member = (message.options.getMentionable('member') ?? message.member) as GuildMember;
+        const member = (message.options.getUser('member') ?? message.member) as GuildMember;
 
         const data = await this.getData(member.user);
 
