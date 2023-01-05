@@ -79,11 +79,11 @@ export class LevelProvider {
 			await send(message, `Congratulations ${message.author.toString()}! You leveled up to level **${newLvl}**!`);
 		}
 
-		await this.sleep(45000)
+		await this.sleep(45000);
 		this.cached.delete(member.id);
 	}
 
-    private async sleep(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+	private async sleep(ms: number) {
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	}
 }
