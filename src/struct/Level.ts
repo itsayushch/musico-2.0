@@ -37,7 +37,7 @@ export class LevelProvider {
 			level++;
 		}
 
-		return exp;
+		return exp ?? 0;
 	}
 
 	public async getLeaderboard() {
