@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command } from '@sapphire/framework';
+import { Args, Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
 import { GuildMember, Message, MessageAttachment, User } from 'discord.js';
 
@@ -13,26 +13,30 @@ export class UserCommand extends Command {
     // Register slash and context menu command
     public override registerApplicationCommands(registry: Command.Registry) {
         // Register slash command
-        registry.registerChatInputCommand({
-            name: this.name,
-            description: this.description
-        });
+		registry.registerChatInputCommand((builder) =>
+			builder
+				.setName(this.name)
+				.setDescription(this.description)
+				.addMentionableOption((option) => option.setName('member').setDescription(this.description).setRequired(false))
+		);
     }
 
     // Message command
-    public async messageRun(message: Message) {
-        const data = await this.getData(message.author);
+    public async messageRun(message: Message, args: Args) {
+        const member = await args.rest('member').catch(() => message.member!)
+
+        const data = await this.getData(member.user);
 
         const rank = new Rank()
-            .setAvatar(message.author.displayAvatarURL({ size: 2048, format: 'png' }))
+            .setAvatar(member.displayAvatarURL({ size: 2048, format: 'png' }))
             .setCurrentXP(data.currentLevelExp)
             .setRequiredXP(data.levelExp)
             .setRank(data.rank)
             .setLevel(data.currentLevel)
-            .setStatus(message.member?.presence?.status ?? 'offline')
+            .setStatus(member?.presence?.status ?? 'offline')
             .setProgressBar('#FFFFFF', 'COLOR')
-            .setUsername(message.author.username)
-            .setDiscriminator(message.author.discriminator);
+            .setUsername(member.user.username)
+            .setDiscriminator(member.user.discriminator);
 
         const img = await rank.build();
         const attachment = new MessageAttachment(img, 'rank.png');
@@ -43,18 +47,20 @@ export class UserCommand extends Command {
     }
 
     public async chatInputRun(message: Command.ChatInputInteraction) {
-        const data = await this.getData(message.user);
+        const member = (message.options.getMember('member') ?? message.member) as GuildMember;
+
+        const data = await this.getData(member.user);
 
         const rank = new Rank()
-            .setAvatar(message.user.displayAvatarURL({ size: 2048, format: 'png' }))
+            .setAvatar(member.user.displayAvatarURL({ size: 2048, format: 'png' }))
             .setCurrentXP(data.currentLevelExp ?? 0)
             .setRequiredXP(data.levelExp)
             .setRank(data.rank)
             .setLevel(data.currentLevel)
-            .setStatus((message.member as GuildMember)?.presence?.status ?? 'offline')
+            .setStatus(member?.presence?.status ?? 'offline')
             .setProgressBar('#FFFFFF', 'COLOR')
-            .setUsername(message.user.username)
-            .setDiscriminator(message.user.discriminator);
+            .setUsername(member.user.username)
+            .setDiscriminator(member.user.discriminator);
 
         const img = await rank.build();
         const attachment = new MessageAttachment(img, 'rank.png');
