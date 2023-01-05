@@ -47,7 +47,7 @@ export class UserCommand extends Command {
     }
 
     public async chatInputRun(message: Command.ChatInputInteraction) {
-        const member = (message.options.getUser('member') ?? message.member) as GuildMember;
+        const member = (message.options.getMember('member') ?? message.member) as GuildMember;
 
         const data = await this.getData(member.user);
 
