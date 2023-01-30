@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, EmbedBuilder, ApplicationCommandType } from 'discord.js';
 
 @ApplyOptions<Command.Options>({
 	description: 'ping pong'
@@ -17,12 +17,12 @@ export class UserCommand extends Command {
 		// Register context menu command available from any message
 		registry.registerContextMenuCommand({
 			name: this.name,
-			type: 'MESSAGE'
+			type: ApplicationCommandType.Message
 		});
 		// Register context menu command available from any user
 		registry.registerContextMenuCommand({
 			name: this.name,
-			type: 'USER'
+			type: ApplicationCommandType.User
 		});
 	}
 
@@ -36,21 +36,20 @@ export class UserCommand extends Command {
 
 		return send(message, {
 			content: null,
-			embeds: [new MessageEmbed().setColor('DARK_NAVY').setDescription(content)]
+			embeds: [new EmbedBuilder().setColor('DarkNavy').setDescription(content)]
 		});
 	}
 	// slash command
-	public async chatInputRun(interaction: Command.ChatInputInteraction) {
+	public async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
 		const msg = await interaction.reply({ content: 'Ping?', fetchReply: true });
-		const createdTime = msg instanceof Message ? msg.createdTimestamp : Date.parse(msg.timestamp);
 
 		const content = `Pong! Bot Latency ${Math.round(this.container.client.ws.ping)}ms. API Latency ${
-			createdTime - interaction.createdTimestamp
+			msg.createdTimestamp - interaction.createdTimestamp
 		}ms.`;
 
 		return await interaction.editReply({
 			content: null,
-			embeds: [new MessageEmbed().setColor('DARK_NAVY').setDescription(content)]
+			embeds: [new EmbedBuilder().setColor('DarkNavy').setDescription(content)]
 		});
 	}
 }

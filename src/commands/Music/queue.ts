@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, EmbedBuilder } from 'discord.js';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { stripIndents } from 'common-tags';
 
@@ -31,7 +31,7 @@ export class UserCommand extends Command {
 
 		if (!tracks.length) {
 			return send(message, {
-				embeds: [{ description: 'Got nothing in queue!', color: 'RED' }]
+				embeds: [{ description: 'Got nothing in queue!', color: 0xff0000 }]
 			});
 		}
 
@@ -46,7 +46,7 @@ export class UserCommand extends Command {
 
 		let index = (paginated.page - 1) * 10;
 
-		const embed = new MessageEmbed().setColor(11642864).setTitle('Music Queue').setFooter({ text: ' Page' });
+		const embed = new EmbedBuilder().setColor(11642864).setTitle('Music Queue').setFooter({ text: ' Page' });
 
 		const paginatedMessage = new PaginatedMessage({
 			template: embed
@@ -85,7 +85,7 @@ export class UserCommand extends Command {
 	}
 
 	// Slash Command
-	public async chatInputRun(interaction: Command.ChatInputInteraction) {
+	public async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
 		await interaction.deferReply();
 		const queue = this.container.client.music.queues.get(interaction.guild!.id);
 
@@ -94,7 +94,7 @@ export class UserCommand extends Command {
 
 		if (!tracks.length) {
 			return interaction.followUp({
-				embeds: [{ description: 'Got nothing in queue!', color: 'RED' }]
+				embeds: [{ description: 'Got nothing in queue!', color: 0xff0000 }]
 			});
 		}
 
@@ -107,7 +107,7 @@ export class UserCommand extends Command {
 
 		let index = (paginated.page - 1) * 10;
 
-		const embed = new MessageEmbed().setColor(11642864).setTitle('Music Queue').setFooter({ text: ' Page' });
+		const embed = new EmbedBuilder().setColor(11642864).setTitle('Music Queue').setFooter({ text: ' Page' });
 
 		const paginatedMessage = new PaginatedMessage({
 			template: embed

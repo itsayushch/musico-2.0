@@ -20,7 +20,6 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message) {
 		if (!message.member?.voice?.channel) {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
@@ -34,15 +33,13 @@ export class UserCommand extends Command {
 		await queue.shuffle();
 
 		return send(message, {
-			content: null,
 			embeds: [{ author: { name: 'Shuffled 🔀' }, color: 11642864 }]
 		});
 	}
 
-	public async chatInputRun(message: Command.ChatInputInteraction) {
+	public async chatInputRun(message: Command.ChatInputCommandInteraction) {
 		if (!(message.member as GuildMember)?.voice?.channel) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
@@ -56,7 +53,6 @@ export class UserCommand extends Command {
 		await queue.shuffle();
 
 		return message.reply({
-			content: null,
 			embeds: [{ author: { name: 'Shuffled 🔀' }, color: 11642864 }]
 		});
 	}

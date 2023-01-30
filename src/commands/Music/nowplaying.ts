@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
 import { stripIndents } from 'common-tags';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, EmbedBuilder } from 'discord.js';
 import timeString from '../../lib/time-string';
 
 @ApplyOptions<Command.Options>({
@@ -25,7 +25,7 @@ export class UserCommand extends Command {
 
 		const current = await queue.current();
 		if (!current) {
-			const embed = new MessageEmbed().setColor('RED').setDescription('Could not find anything in the queue!');
+			const embed = new EmbedBuilder().setColor(0xff0000).setDescription('Could not find anything in the queue!');
 			return send(message, { embeds: [embed] });
 		}
 		const decoded = await this.container.client.music.decode(current.track);
@@ -33,7 +33,7 @@ export class UserCommand extends Command {
 		const duration = Number(decoded.length);
 		const progress = new ProgressBar(position, duration, 15);
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(11642864)
 			.setAuthor({ name: 'Now Playing' })
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`).setDescription(stripIndents`
@@ -51,12 +51,12 @@ export class UserCommand extends Command {
 	}
 
 	// slash command
-	public async chatInputRun(message: Command.ChatInputInteraction) {
+	public async chatInputRun(message: Command.ChatInputCommandInteraction) {
 		const queue = this.container.client.music.queues.get(message.guild!.id);
 
 		const current = await queue.current();
 		if (!current) {
-			const embed = new MessageEmbed().setColor('RED').setDescription('Could not find anything in the queue!');
+			const embed = new EmbedBuilder().setColor(0xff0000).setDescription('Could not find anything in the queue!');
 			return message.reply({ embeds: [embed] });
 		}
 		const decoded = await this.container.client.music.decode(current.track);
@@ -64,7 +64,7 @@ export class UserCommand extends Command {
 		const duration = Number(decoded.length);
 		const progress = new ProgressBar(position, duration, 15);
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(11642864)
 			.setAuthor({ name: 'Now Playing' })
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`).setDescription(stripIndents`

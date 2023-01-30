@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Args, Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { GuildMember, Message, MessageEmbed } from 'discord.js';
+import { GuildMember, Message, EmbedBuilder } from 'discord.js';
 
 import timeString from '../../lib/time-string';
 
@@ -27,7 +27,6 @@ export class UserCommand extends Command {
 
 		if (!message.member?.voice?.channel) {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
@@ -46,29 +45,26 @@ export class UserCommand extends Command {
 			await queue.stop();
 
 			return send(message, {
-				content: null,
 				embeds: [{ author: { name: 'Skipped ⏭' }, color: 11642864 }]
 			});
 		}
 
 		const song = await this.decode(queues[num - 1]);
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(11642864)
 			.setAuthor({ name: 'Now Playing' })
 			.setThumbnail(`https://i.ytimg.com/vi/${song.identifier}/hqdefault.jpg`)
 			.setDescription(`[${song.title}](${song.uri}) (${song.isStream ? '∞' : timeString(song.length)})`);
 
 		return send(message, {
-			content: null,
 			embeds: [embed]
 		});
 	}
 
-	public async chatInputRun(message: Command.ChatInputInteraction) {
+	public async chatInputRun(message: Command.ChatInputCommandInteraction) {
 		if (!(message.member as GuildMember)?.voice?.channel) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
@@ -89,21 +85,19 @@ export class UserCommand extends Command {
 			await queue.stop();
 
 			return message.reply({
-				content: null,
 				embeds: [{ author: { name: 'Skipped ⏭' }, color: 11642864 }]
 			});
 		}
 
 		const song = await this.decode(queues[num - 1]);
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(11642864)
 			.setAuthor({ name: 'Now Playing' })
 			.setThumbnail(`https://i.ytimg.com/vi/${song.identifier}/hqdefault.jpg`)
 			.setDescription(`[${song.title}](${song.uri}) (${song.isStream ? '∞' : timeString(song.length)})`);
 
 		return message.reply({
-			content: null,
 			embeds: [embed]
 		});
 	}

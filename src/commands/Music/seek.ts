@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Args, Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { GuildMember, Message, MessageEmbed } from 'discord.js';
+import { GuildMember, Message, EmbedBuilder } from 'discord.js';
 import timeString from '../../lib/time-string';
 
 @ApplyOptions<Command.Options>({
@@ -23,11 +23,10 @@ export class UserCommand extends Command {
 	public async messageRun(message: Message, args: Args) {
 		if (!message.member?.voice || !message.member.voice.channel) {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
@@ -61,7 +60,7 @@ export class UserCommand extends Command {
 		const duration = Number(decoded.length);
 		const progress = new ProgressBar(point, duration, 15);
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(11642864)
 			.setAuthor({ name: 'Seeked' })
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
@@ -76,10 +75,9 @@ export class UserCommand extends Command {
 		return send(message, { embeds: [embed] });
 	}
 
-	public async chatInputRun(message: Command.ChatInputInteraction) {
+	public async chatInputRun(message: Command.ChatInputCommandInteraction) {
 		if (!(message.member as GuildMember)?.voice || !(message.member as GuildMember).voice.channel) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
@@ -117,7 +115,7 @@ export class UserCommand extends Command {
 		const duration = Number(decoded.length);
 		const progress = new ProgressBar(point, duration, 15);
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(11642864)
 			.setAuthor({ name: 'Seeked' })
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)

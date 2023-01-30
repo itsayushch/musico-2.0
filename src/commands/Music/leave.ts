@@ -34,7 +34,7 @@ export class UserCommand extends Command {
 		await queue.clear();
 		await queue.stop();
 		await queue.player.destroy();
-		if (message.guild?.me?.voice.channel) await queue.player.leave();
+		if (message.guild?.members.me?.voice.channel) await queue.player.leave();
 
 		return send(message, {
 			content: null,
@@ -43,10 +43,9 @@ export class UserCommand extends Command {
 	}
 
 	// slash command
-	public async chatInputRun(message: Command.ChatInputInteraction) {
+	public async chatInputRun(message: Command.ChatInputCommandInteraction) {
 		if (!(message.member as GuildMember)?.voice?.channel) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
@@ -60,10 +59,9 @@ export class UserCommand extends Command {
 		await queue.clear();
 		await queue.stop();
 		await queue.player.destroy();
-		if (message.guild?.me?.voice.channel) await queue.player.leave();
+		if (message.guild?.members.me?.voice.channel) await queue.player.leave();
 
 		return message.reply({
-			content: null,
 			embeds: [{ author: { name: 'Left the voice channel!' }, color: 11642864 }]
 		});
 	}

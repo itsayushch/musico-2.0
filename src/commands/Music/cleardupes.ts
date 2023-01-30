@@ -49,7 +49,7 @@ export class UserCommand extends Command {
 	}
 
 	// slash command
-	public async chatInputRun(message: Command.ChatInputInteraction) {
+	public async chatInputRun(message: Command.ChatInputCommandInteraction) {
 		const queue = this.container.client.music.queues.get(message.guild!.id);
 		const tracks = await queue.tracks();
 		if (!tracks.length) {

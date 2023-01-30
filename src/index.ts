@@ -1,6 +1,7 @@
 import './lib/setup';
 import { LogLevel } from '@sapphire/framework';
 import { Bot } from './struct/Bot';
+import { GatewayIntentBits, Partials } from 'discord.js';
 
 const client = new Bot({
 	defaultPrefix: ';',
@@ -11,18 +12,17 @@ const client = new Bot({
 	},
 	shards: 'auto',
 	intents: [
-		'GUILDS',
-		'GUILD_MEMBERS',
-		'GUILD_BANS',
-		'GUILD_EMOJIS_AND_STICKERS',
-		'GUILD_VOICE_STATES',
-		'GUILD_MESSAGES',
-		'GUILD_MESSAGE_REACTIONS',
-		'DIRECT_MESSAGES',
-		'DIRECT_MESSAGE_REACTIONS',
-		'GUILD_PRESENCES'
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildEmojisAndStickers,
+		GatewayIntentBits.GuildVoiceStates,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessageReactions,
+		GatewayIntentBits.DirectMessages,
+		GatewayIntentBits.DirectMessageReactions,
+		GatewayIntentBits.GuildPresences
 	],
-	partials: ['CHANNEL'],
+	partials: [Partials.Channel],
 	loadMessageCommandListeners: true
 });
 

@@ -29,31 +29,28 @@ export class UserCommand extends Command {
 
 		if (!message.member?.voice || !message.member.voice.channel) {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
 		} else if (!message.member?.voice.channel.joinable) {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: "I don't have permission to **connect** to this voice channel!",
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
 		} else if (!(message.member.voice.channel as VoiceChannel).speakable) {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: "I don't have permission to **stream** in this voice channel!",
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
@@ -65,11 +62,10 @@ export class UserCommand extends Command {
 			if (!['.mp3', '.ogg', '.flac', '.m4a'].includes(path.parse(url.parse(query).path).ext)) return;
 		} else if (!query) {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: 'You need to enter a song for me to play',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
@@ -82,7 +78,7 @@ export class UserCommand extends Command {
 
 		const queue = this.container.client.music.queues.get(message.guild!.id);
 
-		if (!message.guild!.me?.voice.channel) await queue.player.join(message.member.voice.channel.id);
+		if (!message.guild?.members.me?.voice.channel) await queue.player.join(message.member.voice.channel.id);
 
 		let embed;
 
@@ -128,7 +124,7 @@ export class UserCommand extends Command {
 			};
 		} else if (res.loadType === 'LOAD_FAILED') {
 			embed = {
-				color: 'RED',
+				color: 0xff0000,
 				// @ts-expect-error
 				description: `**${res.exception.message}**`,
 				thumbnail: {
@@ -137,21 +133,19 @@ export class UserCommand extends Command {
 			};
 		} else if (res.loadType === 'NO_MATCHES') {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: 'No results found!',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
 		} else {
 			return send(message, {
-				content: null,
 				embeds: [
 					{
 						description: 'No results found!',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
@@ -160,44 +154,40 @@ export class UserCommand extends Command {
 		if (queue.player.playing === false && queue.player.paused === false) await queue.start();
 
 		return send(message, {
-			content: null,
 			// @ts-expect-error
 			embeds: [embed]
 		});
 	}
 
 	// slash command below
-	public async chatInputRun(message: Command.ChatInputInteraction) {
+	public async chatInputRun(message: Command.ChatInputCommandInteraction) {
 		let query = message.options.getString('query');
 		const member = message.member as GuildMember;
 
 		if (!member.voice || !member.voice.channel) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'You must be connected to a voice channel to use that command!',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
 		} else if (!member?.voice.channel.joinable) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: "I don't have permission to **connect** to this voice channel!",
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
 		} else if (!(member.voice.channel as VoiceChannel).speakable) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: "I don't have permission to **stream** in this voice channel!",
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
@@ -205,11 +195,10 @@ export class UserCommand extends Command {
 
 		if (!query) {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'You need to enter a song for me to play',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
@@ -222,7 +211,7 @@ export class UserCommand extends Command {
 
 		const queue = this.container.client.music.queues.get(message.guild!.id);
 
-		if (!message.guild!.me?.voice.channel) await queue.player.join(member.voice.channel.id);
+		if (!message.guild?.members.me?.voice.channel) await queue.player.join(member.voice.channel.id);
 
 		let embed;
 
@@ -268,7 +257,7 @@ export class UserCommand extends Command {
 			};
 		} else if (res.loadType === 'LOAD_FAILED') {
 			embed = {
-				color: 'RED',
+				color: 0xff0000,
 				// @ts-expect-error
 				description: `**${res.exception.message}**`,
 				thumbnail: {
@@ -277,21 +266,19 @@ export class UserCommand extends Command {
 			};
 		} else if (res.loadType === 'NO_MATCHES') {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'No results found!',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
 		} else {
 			return message.reply({
-				content: null,
 				embeds: [
 					{
 						description: 'No results found!',
-						color: 'RED'
+						color: 0xff0000
 					}
 				]
 			});
@@ -300,7 +287,6 @@ export class UserCommand extends Command {
 		if (queue.player.playing === false && queue.player.paused === false) await queue.start();
 
 		return message.reply({
-			content: null,
 			// @ts-expect-error
 			embeds: [embed]
 		});
