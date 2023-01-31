@@ -13,7 +13,7 @@
 
 ## Acknowledgement
 - Library - [discord.js](https://discord.js.org/)
-- Framework - [Discord Akairo](https://www.sapphirejs.dev/)
+- Framework - [Sapphire](https://www.sapphirejs.dev/)
 - Licence - [MIT](https://github.com/TheMitobot/Mito/blob/main/LICENSE)
 - Hosting - [Azure](https://portal.azure.com)
 
