@@ -29,15 +29,3 @@ First off, thanks for taking the time to contribute! You can contribute in:
 You can contribute to this repository by the following steps: 
 - Fork the repo, add your changes and issue a pull request!
 **Note** - You must test your changes before issuing a pull request.
-
-# Credits
-
-<div align="center">
-<table>
-  <tr>
-     <td align="center"><a href="https://github.com/itsayushch"><img src="https://images-ext-2.discordapp.net/external/j6KzoUsLtEaz938SxxwxqMd25pgmoTUxxlwSyaUtrEw/%3Fv%3D4/https/avatars3.githubusercontent.com/u/57065963" width="100px;" alt=""/><br /><sub><b>Ayush</b></sub></a><br /><a href="https://github.com/itsayushch" title="Developer">💻</a></td>
-     
-  </tr>
-  
-</table>
-</div>
