@@ -20,7 +20,8 @@ const client = new Bot({
 		GatewayIntentBits.GuildMessageReactions,
 		GatewayIntentBits.DirectMessages,
 		GatewayIntentBits.DirectMessageReactions,
-		GatewayIntentBits.GuildPresences
+		GatewayIntentBits.GuildPresences,
+		GatewayIntentBits.MessageContent
 	],
 	partials: [Partials.Channel],
 	loadMessageCommandListeners: true
