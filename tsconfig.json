@@ -6,5 +6,5 @@
 		"tsBuildInfoFile": "dist/.tsbuildinfo",
 		"skipLibCheck": true
 	},
-	"include": ["src"]
+	"include": ["src", "index.d.ts"]
 }

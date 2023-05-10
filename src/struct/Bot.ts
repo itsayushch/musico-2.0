@@ -6,12 +6,14 @@ import { Database } from './Database';
 import SettingsProvider from './SettingsProvider';
 import { LevelProvider } from './Level';
 import type { Db } from 'mongodb';
+import { PlaylistHandler } from './Playlist';
 
 export class Bot extends SapphireClient {
 	public readonly music: Music;
 	public db!: Db;
 	public settings!: SettingsProvider;
 	public levels!: LevelProvider;
+	public playlist!: PlaylistHandler;
 
 	constructor(args: ClientOptions) {
 		super(args);
@@ -57,6 +59,7 @@ export class Bot extends SapphireClient {
 		await this.settings.init();
 
 		this.levels = new LevelProvider(this.db);
+		this.playlist = new PlaylistHandler(this.db);
 
 		try {
 			this.logger.info('Logging in');
@@ -76,5 +79,6 @@ declare module 'discord.js' {
 		db: Db;
 		settings: SettingsProvider;
 		levels: LevelProvider;
+		playlist: PlaylistHandler;
 	}
 }

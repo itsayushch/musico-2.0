@@ -8,7 +8,7 @@ import timeString from '../../lib/time-string';
 import type { GuildMember, Message, VoiceChannel } from 'discord.js';
 
 @ApplyOptions<Command.Options>({
-	aliases: ['pl', 'p'],
+	aliases: ['p'],
 	description: 'Play a song from literally any source you can think of.'
 })
 export class UserCommand extends Command {
