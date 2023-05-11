@@ -64,14 +64,12 @@ export class LevelProvider {
 		return data;
 	}
 
-	async giveGuildUserExp(member: GuildMember, message: Message) {
+	async giveGuildUserExp(member: GuildMember) {
 		if (this.cached.has(member.id)) return;
 
 		this.cached.add(member.id);
 		const oldExp = await this.getGuildMemberExp(member);
-		const oldLvl = this.getLevelFromExp(oldExp);
 		const newExp = oldExp + LevelProvider.randomInt(15, 25);
-		const newLvl = this.getLevelFromExp(newExp);
 
 		await this.setGuildMemberExp(member, newExp);
 
