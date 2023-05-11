@@ -8,7 +8,7 @@ import { inspect } from 'util';
 import fetch from 'cross-fetch';
 
 @ApplyOptions<Command.Options>({
-	aliases: ['ev'],
+	aliases: ['e'],
 	description: 'Evals any JavaScript code',
 	quotes: [],
 	preconditions: ['OwnerOnly'],
