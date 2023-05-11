@@ -12,8 +12,7 @@ import shell from 'shelljs';
 
 export class GitPullComamnd extends Command {
     public async messageRun(message: Message) {
-        const { stdout, stderr } = shell.exec('git pull');
-        await shell.exec('npm install');
+        const { stdout, stderr } = shell.exec('git pull && npm install && tsc');
         return send(message, {
             content: [
                 '```js',
