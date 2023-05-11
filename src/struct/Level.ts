@@ -1,5 +1,4 @@
-import { send } from '@sapphire/plugin-editable-commands';
-import type { GuildMember, Message } from 'discord.js';
+import type { GuildMember } from 'discord.js';
 import type { Collection, Db } from 'mongodb';
 
 export class LevelProvider {

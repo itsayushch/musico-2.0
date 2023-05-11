@@ -4,8 +4,8 @@ import { Bot } from './struct/Bot';
 import { GatewayIntentBits, Partials } from 'discord.js';
 
 const client = new Bot({
-	defaultPrefix: ';;',
-	regexPrefix: /^(hey +)?musika[,! ]/i,
+	defaultPrefix: ';',
+	regexPrefix: /^(hey +)?musico[,! ]/i,
 	caseInsensitiveCommands: true,
 	logger: {
 		level: LogLevel.Debug
