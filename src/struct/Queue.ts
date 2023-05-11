@@ -1,5 +1,7 @@
-import { Node, Player, NodeOptions, ConnectionOptions } from 'lavalink';
+import { Node, Player, type NodeOptions, type ConnectionOptions} from 'lavalink';
 import events from 'events';
+
+
 type Client = QueueNode;
 
 interface lavalinkPlayerUpdate {
