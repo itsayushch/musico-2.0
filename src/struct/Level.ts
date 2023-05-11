@@ -75,9 +75,9 @@ export class LevelProvider {
 
 		await this.setGuildMemberExp(member, newExp);
 
-		if (oldLvl !== newLvl) {
-			await send(message, `Congratulations ${message.author.toString()}! You leveled up to level **${newLvl}**!`);
-		}
+		// if (oldLvl !== newLvl) {
+		// 	await send(message, `Congratulations ${message.author.toString()}! You leveled up to level **${newLvl}**!`);
+		// }
 
 		await this.sleep(45000);
 		this.cached.delete(member.id);
