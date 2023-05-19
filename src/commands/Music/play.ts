@@ -76,6 +76,8 @@ export class UserCommand extends Command {
 
 		const res = await this.container.client.music.load(query);
 
+		console.log(res);
+
 		const queue = this.container.client.music.queues.get(message.guild!.id);
 
 		if (!message.guild?.members.me?.voice.channel) await queue.player.join(message.member.voice.channel.id);
