@@ -24,7 +24,7 @@
     "discord-api-types": "^0.37.30",
     "discord.js": "^14.7.1",
     "dotenv-cra": "^3.0.3",
-    "lavalink": "https://github.com/itsayushch/lavalink.js",
+    "lavalink": "^2.13.0",
     "mathjs": "^9.5.2",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",

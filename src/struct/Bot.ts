@@ -17,7 +17,7 @@ export class Bot extends SapphireClient {
 
 	constructor(args: ClientOptions) {
 		super(args);
-
+		console.log(process.env.LAVA_REST, process.env.LAVA_WS);
 		this.music = new Music({
 			userID: process.env.ID!,
 			password: process.env.LAVA_PASS!,

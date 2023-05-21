@@ -1360,7 +1360,7 @@ console-control-strings@^1.0.0, console-control-strings@^1.1.0:
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
   integrity sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==
 
-cross-fetch@^3.1.5, cross-fetch@^3.1.6:
+cross-fetch@^3.1.5:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.6.tgz#bae05aa31a4da760969756318feeee6e70f15d6c"
   integrity sha512-riRvo06crlE8HiqOwIpQhxwdOk4fOeR7FVM/wXoxchFEqMNUjvbs3bfo4OTgMEMHzppd4DxFBDbyySj8Cv781g==
@@ -1915,12 +1915,12 @@ json-parse-better-errors@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
   integrity sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==
 
-"lavalink@https://github.com/itsayushch/lavalink.js":
+lavalink@^2.13.0:
   version "2.13.0"
-  resolved "https://github.com/itsayushch/lavalink.js#a38ea1e5c7a5c19f95320fae1060e22053e3fd84"
+  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.13.0.tgz#1b2591998ac108710e436d42bb5b10deafa1c5f9"
+  integrity sha512-+HFiA88Nb8mWCdPw/H1wMHw7XD2xKPZ7YWeqYMo9ZbrEMC6KGJCm+NpYmlVQFF7cLpPVeZS3IQ78P9vtaocWJA==
   dependencies:
     backoff "^2.5.0"
-    cross-fetch "^3.1.6"
     ws "^7.4.0"
 
 load-json-file@^4.0.0:
