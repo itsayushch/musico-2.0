@@ -30,14 +30,16 @@ export class UserCommand extends Command {
 		}
 		const decoded = await this.container.client.music.decode(current.track);
 
+
+
 		const card = new musicCard()
 			.setName(decoded.title)
 			.setAuthor(decoded.author)
 			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
 			.setBrightness(50)
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
-			.setProgress(Number(decoded.position / decoded.length) * 100)
-			.setStartTime(timeString(decoded.position))
+			.setProgress(Number(current.position / decoded.length) * 100)
+			.setStartTime(`${timeString(current.position)}`)
 			.setEndTime(`${decoded.isStream ? 'Live' : timeString(decoded.length)}`)
 
 		const img = await card.build();
@@ -60,19 +62,21 @@ export class UserCommand extends Command {
 		}
 		const decoded = await this.container.client.music.decode(current.track);
 
+
+
 		const card = new musicCard()
 			.setName(decoded.title)
 			.setAuthor(decoded.author)
 			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
 			.setBrightness(50)
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
-			.setProgress(Number(decoded.position / decoded.length) * 100)
-			.setStartTime(`${timeString(decoded.position)}`)
+			.setProgress(Number(current.position / decoded.length) * 100)
+			.setStartTime(`${timeString(current.position)}`)
 			.setEndTime(`${decoded.isStream ? 'Live' : timeString(decoded.length)}`)
 
 		const img = await card.build();
 
-		const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+		const attachment = new AttachmentBuilder(img, { name: 'np.png' });
 
 		return message.reply({
 			files: [attachment]
