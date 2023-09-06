@@ -3,9 +3,9 @@ import url from 'url';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Args, Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { stripIndents } from 'common-tags';
 import timeString from '../../lib/time-string';
-import type { GuildMember, Message, VoiceChannel } from 'discord.js';
+import { AttachmentBuilder, type GuildMember, type Message, type VoiceChannel } from 'discord.js';
+import { musicCard } from 'musicard';
 
 @ApplyOptions<Command.Options>({
 	aliases: ['p'],
@@ -87,43 +87,45 @@ export class UserCommand extends Command {
 		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(res.loadType)) {
 			await queue.add(res.tracks[0].track);
 
-			embed = {
-				author: {
-					name: 'Added to queue'
-				},
-				color: 11642864,
-				description: stripIndents`
-				**❯ Song**
-				[${res.tracks[0].info.title}](${res.tracks[0].info.uri})
-				**❯ Uploaded By**
-				${res.tracks[0].info.author}
-				**❯ Length**
-				${res.tracks[0].info.isStream ? 'Live' : timeString(res.tracks[0].info.length)}
-				`,
-				thumbnail: {
-					url: `https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`
-				}
-			};
+			const card = new musicCard()
+				.setName(res.tracks[0].info.title)
+				.setAuthor(res.tracks[0].info.author)
+				.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+				.setBrightness(50)
+				.setThumbnail(`https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`)
+				.setProgress(0)
+				.setStartTime("0:00")
+				.setEndTime(`${res.tracks[0].info.isStream ? 'Live' : timeString(res.tracks[0].info.length)}`)
+
+			const img = await card.build();
+			const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+
+			return send(message, {
+				files: [attachment]
+			});
+
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
 			await queue.add(...res.tracks.map((track) => track.track));
-			const totalLength = res.tracks.filter((track) => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0);
-			embed = {
-				author: {
-					name: 'Added to queue'
-				},
-				color: 11642864,
-				description: stripIndents`
-				**❯ Playlist**
-				${res.playlistInfo.name}
-				**❯ Total Songs**
-				${res.tracks.length}
-				**❯ Total Length**
-				${timeString(totalLength)}
-				`,
-				thumbnail: {
-					url: `https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`
-				}
-			};
+
+			const card = new musicCard()
+				.setName(res.tracks[0].info.title)
+				.setAuthor(res.tracks[0].info.author)
+				.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+				.setBrightness(50)
+				.setThumbnail(`https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`)
+				.setProgress(0)
+				.setStartTime("0:00")
+				.setEndTime(`${res.tracks[0].info.isStream ? 'Live' : timeString(res.tracks[0].info.length)}`)
+
+			const img = await card.build();
+			const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+
+			const totalLength = res.tracks.filter((track) => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0) - 1;
+
+			return send(message, {
+				files: [attachment],
+				content: `## _Added __${totalLength}__ songs more!_`
+			});
 		} else if (res.loadType === 'LOAD_FAILED') {
 			embed = {
 				color: 0xff0000,
@@ -220,43 +222,45 @@ export class UserCommand extends Command {
 		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(res.loadType)) {
 			await queue.add(res.tracks[0].track);
 
-			embed = {
-				author: {
-					name: 'Added to queue'
-				},
-				color: 11642864,
-				description: stripIndents`
-				**❯ Song**
-				[${res.tracks[0].info.title}](${res.tracks[0].info.uri})
-				**❯ Uploaded By**
-				${res.tracks[0].info.author}
-				**❯ Length**
-				${res.tracks[0].info.isStream ? 'Live' : timeString(res.tracks[0].info.length)}
-				`,
-				thumbnail: {
-					url: `https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`
-				}
-			};
+			const card = new musicCard()
+				.setName(res.tracks[0].info.title)
+				.setAuthor(res.tracks[0].info.author)
+				.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+				.setBrightness(50)
+				.setThumbnail(`https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`)
+				.setProgress(0)
+				.setStartTime("0:00")
+				.setEndTime(`${res.tracks[0].info.isStream ? 'Live' : timeString(res.tracks[0].info.length)}`)
+
+			const img = await card.build();
+			const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+
+			return message.reply({
+				files: [attachment]
+			});
+
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
 			await queue.add(...res.tracks.map((track) => track.track));
-			const totalLength = res.tracks.filter((track) => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0);
-			embed = {
-				author: {
-					name: 'Added to queue'
-				},
-				color: 11642864,
-				description: stripIndents`
-				**❯ Playlist**
-				${res.playlistInfo.name}
-				**❯ Total Songs**
-				${res.tracks.length}
-				**❯ Total Length**
-				${timeString(totalLength)}
-				`,
-				thumbnail: {
-					url: `https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`
-				}
-			};
+
+			const card = new musicCard()
+				.setName(res.tracks[0].info.title)
+				.setAuthor(res.tracks[0].info.author)
+				.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+				.setBrightness(50)
+				.setThumbnail(`https://i.ytimg.com/vi/${res.tracks[0].info.identifier}/hqdefault.jpg`)
+				.setProgress(0)
+				.setStartTime("0:00")
+				.setEndTime(`${res.tracks[0].info.isStream ? 'Live' : timeString(res.tracks[0].info.length)}`)
+
+			const img = await card.build();
+			const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+
+			const totalLength = res.tracks.filter((track) => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0) - 1;
+
+			return message.reply ({
+				files: [attachment],
+				content: `## _Added __${totalLength}__ songs more!_`
+			});
 		} else if (res.loadType === 'LOAD_FAILED') {
 			embed = {
 				color: 0xff0000,
