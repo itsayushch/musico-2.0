@@ -29,7 +29,7 @@
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "mongodb": "^4.13.0",
-    "musicard": "^1.4.2",
+    "musicard": "git+https://github.com/itsayushch/musicard.git",
     "reflect-metadata": "^0.1.13",
     "shelljs": "^0.8.5"
   },

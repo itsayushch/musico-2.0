@@ -36,7 +36,7 @@ export class UserCommand extends Command {
 			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
 			.setBrightness(50)
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
-			.setProgress(0)
+			.setProgress(Number(decoded.position / decoded.length) * 100)
 			.setStartTime(timeString(decoded.position))
 			.setEndTime(`${decoded.isStream ? 'Live' : timeString(decoded.length)}`)
 
@@ -66,8 +66,8 @@ export class UserCommand extends Command {
 			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
 			.setBrightness(50)
 			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
-			.setProgress(0)
-			.setStartTime(timeString(decoded.position))
+			.setProgress(Number(decoded.position / decoded.length) * 100)
+			.setStartTime(`${timeString(decoded.position)}`)
 			.setEndTime(`${decoded.isStream ? 'Live' : timeString(decoded.length)}`)
 
 		const img = await card.build();

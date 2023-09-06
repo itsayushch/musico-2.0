@@ -2157,10 +2157,9 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-musicard@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/musicard/-/musicard-1.4.2.tgz#f62dd92e0f59e107f9faffb83907228a6ec02e13"
-  integrity sha512-uoS+ZIgMBO71qlbsF2zUMWjGns5ShjZolXFjCNizApRXrIOAKOb2H8rk5a1UnzebE0zhEoEW/9Vn705uc6ef7g==
+"musicard@git+https://github.com/itsayushch/musicard.git":
+  version "1.4.3"
+  resolved "git+https://github.com/itsayushch/musicard.git#177368893df953f7fe78e33b9772b4faf468bdb3"
   dependencies:
     "@napi-rs/canvas" "^0.1.44"
     color-thief-node "^1.0.4"
