@@ -99,7 +99,7 @@ export class UserCommand extends Command {
 
 			const img = await card.build();
 			const attachment = new AttachmentBuilder(img, { name: 'song.png' });
-		
+
 			if (queue.player.playing === false && queue.player.paused === false) await queue.start();
 
 			return send(message, {
@@ -236,6 +236,7 @@ export class UserCommand extends Command {
 
 			const img = await card.build();
 			const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+			if (queue.player.playing === false && queue.player.paused === false) await queue.start();
 
 			return message.reply({
 				files: [attachment]
@@ -258,8 +259,9 @@ export class UserCommand extends Command {
 			const attachment = new AttachmentBuilder(img, { name: 'song.png' });
 
 			const totalLength = res.tracks.filter((track) => !track.info.isStream).reduce((prev, song) => prev + song.info.length, 0) - 1;
+			if (queue.player.playing === false && queue.player.paused === false) await queue.start();
 
-			return message.reply ({
+			return message.reply({
 				files: [attachment],
 				content: `## _Added __${totalLength}__ songs more!_`
 			});
