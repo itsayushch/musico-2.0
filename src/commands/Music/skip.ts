@@ -1,9 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Args, Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { GuildMember, Message, EmbedBuilder } from 'discord.js';
+import { GuildMember, Message, EmbedBuilder, AttachmentBuilder } from 'discord.js';
 
 import timeString from '../../lib/time-string';
+import { musicCard } from 'musicard';
 
 @ApplyOptions<Command.Options>({
 	description: 'Skips a song to the next one.',
@@ -51,14 +52,22 @@ export class UserCommand extends Command {
 
 		const song = await this.decode(queues[num - 1]);
 
-		const embed = new EmbedBuilder()
-			.setColor(11642864)
-			.setAuthor({ name: 'Now Playing' })
+		const card = new musicCard()
+			.setName(song.title)
+			.setAuthor(song.author)
+			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+			.setBrightness(50)
 			.setThumbnail(`https://i.ytimg.com/vi/${song.identifier}/hqdefault.jpg`)
-			.setDescription(`[${song.title}](${song.uri}) (${song.isStream ? '∞' : timeString(song.length)})`);
+			.setProgress(0)
+			.setStartTime("0:00")
+			.setEndTime(`${song.isStream ? 'Live' : timeString(song.length)}`)
+
+		const img = await card.build();
+
+		const attachment = new AttachmentBuilder(img, { name: 'song.png' });
 
 		return send(message, {
-			embeds: [embed]
+			files: [attachment]
 		});
 	}
 
@@ -91,14 +100,22 @@ export class UserCommand extends Command {
 
 		const song = await this.decode(queues[num - 1]);
 
-		const embed = new EmbedBuilder()
-			.setColor(11642864)
-			.setAuthor({ name: 'Now Playing' })
+		const card = new musicCard()
+			.setName(song.title)
+			.setAuthor(song.author)
+			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+			.setBrightness(50)
 			.setThumbnail(`https://i.ytimg.com/vi/${song.identifier}/hqdefault.jpg`)
-			.setDescription(`[${song.title}](${song.uri}) (${song.isStream ? '∞' : timeString(song.length)})`);
+			.setProgress(0)
+			.setStartTime("0:00")
+			.setEndTime(`${song.isStream ? 'Live' : timeString(song.length)}`)
+
+		const img = await card.build();
+
+		const attachment = new AttachmentBuilder(img, { name: 'song.png' });
 
 		return message.reply({
-			embeds: [embed]
+			files: [attachment]
 		});
 	}
 

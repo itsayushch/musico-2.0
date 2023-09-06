@@ -1,9 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { stripIndents } from 'common-tags';
-import { Message, EmbedBuilder } from 'discord.js';
+import { Message, EmbedBuilder, AttachmentBuilder } from 'discord.js';
 import timeString from '../../lib/time-string';
+import { musicCard } from 'musicard';
 
 @ApplyOptions<Command.Options>({
 	description: 'Shows What song the bot is currently playing.',
@@ -29,25 +29,24 @@ export class UserCommand extends Command {
 			return send(message, { embeds: [embed] });
 		}
 		const decoded = await this.container.client.music.decode(current.track);
-		const position = Number(current.position);
-		const duration = Number(decoded.length);
-		const progress = new ProgressBar(position, duration, 15);
 
-		const embed = new EmbedBuilder()
-			.setColor(11642864)
-			.setAuthor({ name: 'Now Playing' })
-			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`).setDescription(stripIndents`
-			**❯ Song**
-			[${decoded.title}](${decoded.uri})
-			**❯ Uploaded by**
-			${decoded.author}
-			**❯ Time**
-			${timeString(current.position)}/${decoded.isStream ? '∞' : timeString(decoded.length)}
-			**❯ Progress Bar**
-			${progress.createBar()}
-			`);
+		const card = new musicCard()
+			.setName(decoded.title)
+			.setAuthor(decoded.author)
+			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+			.setBrightness(50)
+			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
+			.setProgress(0)
+			.setStartTime(timeString(decoded.position))
+			.setEndTime(`${decoded.isStream ? 'Live' : timeString(decoded.length)}`)
 
-		return send(message, { embeds: [embed] });
+		const img = await card.build();
+
+		const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+
+		return send(message, {
+			files: [attachment]
+		});
 	}
 
 	// slash command
@@ -60,49 +59,48 @@ export class UserCommand extends Command {
 			return message.reply({ embeds: [embed] });
 		}
 		const decoded = await this.container.client.music.decode(current.track);
-		const position = Number(current.position);
-		const duration = Number(decoded.length);
-		const progress = new ProgressBar(position, duration, 15);
 
-		const embed = new EmbedBuilder()
-			.setColor(11642864)
-			.setAuthor({ name: 'Now Playing' })
-			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`).setDescription(stripIndents`
-			**❯ Song**
-			[${decoded.title}](${decoded.uri})
-			**❯ Uploaded by**
-			${decoded.author}
-			**❯ Time**
-			${timeString(current.position)}/${decoded.isStream ? '∞' : timeString(decoded.length)}
-			**❯ Progress Bar**
-			${progress.createBar()}
-			`);
+		const card = new musicCard()
+			.setName(decoded.title)
+			.setAuthor(decoded.author)
+			.setColor("auto") // or hex color without # (default: auto) (auto: dominant color from thumbnail)
+			.setBrightness(50)
+			.setThumbnail(`https://i.ytimg.com/vi/${decoded.identifier}/hqdefault.jpg`)
+			.setProgress(0)
+			.setStartTime(timeString(decoded.position))
+			.setEndTime(`${decoded.isStream ? 'Live' : timeString(decoded.length)}`)
 
-		return message.reply({ embeds: [embed] });
+		const img = await card.build();
+
+		const attachment = new AttachmentBuilder(img, { name: 'song.png' });
+
+		return message.reply({
+			files: [attachment]
+		});
 	}
 }
 
-class ProgressBar {
-	public value: number;
-	public maxValue: number;
-	public barSize: number;
+// class ProgressBar {
+// 	public value: number;
+// 	public maxValue: number;
+// 	public barSize: number;
 
-	constructor(value: number, maxValue: number, barSize: number) {
-		this.value = value;
-		this.maxValue = maxValue;
-		this.barSize = barSize;
-	}
+// 	constructor(value: number, maxValue: number, barSize: number) {
+// 		this.value = value;
+// 		this.maxValue = maxValue;
+// 		this.barSize = barSize;
+// 	}
 
-	createBar(showPercentage = true) {
-		const percentage = this.value / this.maxValue; // Calculate the percentage of the bar
-		const progress = Math.round(this.barSize * percentage); // Calculate the number of square caracters to fill the progress side.
-		const emptyProgress = this.barSize - progress; // Calculate the number of dash caracters to fill the empty progress side.
+// 	createBar(showPercentage = true) {
+// 		const percentage = this.value / this.maxValue; // Calculate the percentage of the bar
+// 		const progress = Math.round(this.barSize * percentage); // Calculate the number of square caracters to fill the progress side.
+// 		const emptyProgress = this.barSize - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
-		const progressText = `[▰](https://www.youtube.com/watch?v=dQw4w9WgXcQ)`.repeat(progress); // Repeat is creating a string with progress * caracters in it
-		const emptyProgressText = '▱'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
-		const percentageText = `${Math.round(percentage * 100)}%`; // Displaying the percentage of the bar
+// 		const progressText = `[▰](https://www.youtube.com/watch?v=dQw4w9WgXcQ)`.repeat(progress); // Repeat is creating a string with progress * caracters in it
+// 		const emptyProgressText = '▱'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
+// 		const percentageText = `${Math.round(percentage * 100)}%`; // Displaying the percentage of the bar
 
-		const bar = `${progressText}${emptyProgressText}${showPercentage ? ` ${percentageText}` : ''}`; // Creating the bar
-		return bar;
-	}
-}
+// 		const bar = `${progressText}${emptyProgressText}${showPercentage ? ` ${percentageText}` : ''}`; // Creating the bar
+// 		return bar;
+// 	}
+// }
