@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Args, Command } from '@sapphire/framework';
 import { send } from '@sapphire/plugin-editable-commands';
-import { GuildMember, Message, EmbedBuilder, AttachmentBuilder } from 'discord.js';
+import { GuildMember, Message, AttachmentBuilder } from 'discord.js';
 
 import timeString from '../../lib/time-string';
 import { musicCard } from 'musicard';
