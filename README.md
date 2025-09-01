@@ -1,4 +1,4 @@
-# Musico 2.0
+# Musico
 <div align="center">
 <p align="center"><a href="https://discord.gg/a3XeQvSVJG"><img src="https://images-ext-1.discordapp.net/external/OS6Tjg2W4i3j4lihAfX0GGL4jhU6jFjyuAf9ud9-E7o/%3Fsize%3D4096%26ignore%3Dtrue%29./https/cdn.discordapp.com/avatars/1025556933052219402/829850108836769b234b2036faf36e4c.png?width=413&height=413" width="200"></a></p><br>
 <a href="https://discord.gg/a3XeQvSVJG"><img src="https://img.shields.io/discord/1056555185914265670?style=for-the-badge"></a>
